@@ -107,15 +107,16 @@ pipe = Pipeline([('cleanText', CleanTextTransformer()), ('vectorizer', vectorize
 
 df_train_data = read_csv("testTrain.csv")
 df_train_data_cleaned = df_train_data.dropna()
+# print df_train_data_cleaned.count
 
-pipe.fit(df_train_data_cleaned['comments'].astype(str).tolist()[:500], df_train_data_cleaned['review_scores_rating'].astype(str).tolist()[:500])
+pipe.fit(df_train_data_cleaned['comments'].astype(str).tolist()[:17000], df_train_data_cleaned['review_scores_rating'].astype(str).tolist()[:17000])
 # test
-preds = pipe.predict(df_train_data_cleaned['comments'].astype(str).tolist()[500:])
+preds = pipe.predict(df_train_data_cleaned['comments'].astype(str).tolist()[17000:])
 print("----------------------------------------------------------------------------------------------")
 print("results:")
-for (sample, pred) in zip(df_train_data_cleaned['comments'].astype(str).tolist()[500:], preds):
+for (sample, pred) in zip(df_train_data_cleaned['comments'].astype(str).tolist()[17000:], preds):
     print(sample, ":", pred)
-print("accuracy:", accuracy_score(df_train_data_cleaned['review_scores_rating'].astype(str).tolist()[500:], preds))
+print("accuracy:", accuracy_score(df_train_data_cleaned['review_scores_rating'].astype(str).tolist()[17000:], preds))
 
 print("----------------------------------------------------------------------------------------------")
 print("Top 10 features used to predict: ")
