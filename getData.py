@@ -19,6 +19,7 @@ Json structure of final data
 import pandas
 import os
 
+
 csv_delimiter = ","
 
 def read_csv(filename):
@@ -37,9 +38,16 @@ def getData(root):
 	# df_neighbourhoods = read_csv(file_neighbourhoods)
 	df_reviews = read_csv(file_reviews)
 	df_list_index = df_list.set_index('id')
+	df_train_data = read_csv("train.csv")
 	#Data joined and ready
 	df_join_cal = df_cal_filled.join(df_list_index,on="listing_id",lsuffix="_overlap")
 	df_join_reviews = df_reviews.join(df_list_index,on="listing_id",lsuffix="_overlap")
+	#Creating training data only for reviews
+	df_join_train = df_train_data.join(df_join_reviews,on="listing_id",lsuffix="_overlap")
+	print df_join_train[['listing_id_overlap','comments','review_scores_rating']].head(10)
+	df_join_train[['listing_id_overlap','comments','review_scores_rating']].to_csv("testTrain.csv")
+
+
 	# Write all this to a file
 
 
@@ -47,7 +55,5 @@ for root, dirs, files in os.walk("contestdata"):
 	if "/" in root:
 		print root
 		getData(root)
-
-
-
+		break
 
