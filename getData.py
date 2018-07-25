@@ -44,10 +44,10 @@ def getData(root):
 	df_join_reviews = df_reviews.join(df_list_index,on="listing_id",lsuffix="_overlap")
 	#Creating training data only for reviews
 	df_join_train = df_train_data.join(df_join_reviews,on="listing_id",lsuffix="_overlap")
-	print df_join_train.head(10)
-	print os.path.isfile("testTrain.csv")
+	print(df_join_train.head(10))
+	print(os.path.isfile("testTrain.csv"))
 	if os.path.isfile("testTrain.csv") == False:
-		df_join_train[['listing_id_overlap','comments','review_scores_rating']].dropna().to_csv("testTrain.csv")
+		df_join_train[['listing_id_overlap','comments','review_scores_rating']].dropna().to_csv("testTrainNew.csv")
 	else:
 		with open('testTrain.csv', 'a') as f:
 			df_join_train[['listing_id_overlap','comments','review_scores_rating']].dropna().to_csv(f, header=False)
@@ -58,5 +58,5 @@ def getData(root):
 os.remove("testTrain.csv")
 for root, dirs, files in os.walk("contestdata"): 
 	if "/" in root:
-		print root
+		print(root)
 		getData(root)

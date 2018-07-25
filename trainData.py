@@ -105,7 +105,7 @@ clf = LinearSVC()
 # the pipeline to clean, tokenize, vectorize, and classify
 pipe = Pipeline([('cleanText', CleanTextTransformer()), ('vectorizer', vectorizer), ('clf', clf)])
 
-df_train_data = read_csv("testTrain.csv")
+df_train_data = read_csv("testTrainNew.csv")
 df_train_data_cleaned = df_train_data.dropna()
 # print df_train_data_cleaned.count
 
